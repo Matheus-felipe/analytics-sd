@@ -3,4 +3,13 @@
   <groupId>analytics-sd</groupId>
   <artifactId>analytics-sd</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+   <dependencies>
+      <dependency>
+           <groupId>org.twitter4j</groupId>
+           <artifactId>twitter4j-core</artifactId>
+           <version>[4.0,)</version>
+       </dependency>
+   </dependencies>
+   
 </project>
