@@ -1,7 +1,10 @@
 package social.media;
 
+import java.util.List;
+
 import twitter4j.Query;
 import twitter4j.QueryResult;
+import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -22,9 +25,11 @@ public class TwitterHandler {
 		this.twitter = tf.getInstance();
 	}
 	
-	public void searchTweets (String query) throws TwitterException {
-		Query q = new Query("https://www.youtube.com/watch?v=PkkjLV0eiOw");
+	public List <Status> searchTweets (String query) throws TwitterException {
+		Query q = new Query(query);
 		q.setCount(100);
 		QueryResult result = twitter.search(q);
+		List <Status> s = result.getTweets();
+		return s;
 	}
 }	
