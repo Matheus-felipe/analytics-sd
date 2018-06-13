@@ -1,5 +1,6 @@
 package storm;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.storm.spout.SpoutOutputCollector;
@@ -8,6 +9,7 @@ import org.apache.storm.topology.IRichSpout;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 
 import social.media.TwitterHandler;
+import twitter4j.Status;
 import twitter4j.Twitter;
 
 public class TwitterSpout implements IRichSpout {
@@ -27,8 +29,11 @@ public class TwitterSpout implements IRichSpout {
 	
 	/*Storm chama constantemente*/
 	public void nextTuple() {
+		List <Status> sl = this.t.searchTweets("brasileirinhas");
 		
-		
+		for (Status s : sl) {
+			
+		}
 	}
 
 	public void ack(Object arg0) {

@@ -11,9 +11,9 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterHandler {
-	
+
 	private Twitter twitter;
-	
+
 	public TwitterHandler() {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb = cb.setDebugEnabled(true);
@@ -24,12 +24,32 @@ public class TwitterHandler {
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		this.twitter = tf.getInstance();
 	}
-	
-	public List <Status> searchTweets (String query) throws TwitterException {
+
+	public List <Status> searchTweets (String query) {
 		Query q = new Query(query);
 		q.setCount(100);
-		QueryResult result = twitter.search(q);
-		List <Status> s = result.getTweets();
+		QueryResult result;
+		List <Status> s = null;
+
+		try {
+			result = this.twitter.search(q);
+			
+			while(true) {	
+				for(Status status : result.getTweets()) {
+					if(!status.isRetweet()) {
+						s.add(status);
+					}
+				}
+				if(result.hasNext()) {//there is more pages to load
+					q = result.nextQuery();
+					result = twitter.search(q);
+				}else {
+					break;
+				}
+			}
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
 		return s;
 	}
 }	
