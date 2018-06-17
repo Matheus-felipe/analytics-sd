@@ -18,11 +18,14 @@ public class Topology {
 		conf.registerSerialization(Status.class);
 		conf.registerSerialization(TwitterBean.class);
 		TopologyBuilder builder = new TopologyBuilder();
-		List <Status> sl = new TwitterHandler().searchTweets("feijocomacento");
-		builder.setSpout("teste-spout", new TwitterSpout(sl));
-		
+		TwitterHandler th = new TwitterHandler();
+		List <Status> sl = th.searchTweets("feijocomacento");
+		builder.setSpout("twitter-spout", new TwitterSpout(sl));
+		builder.setBolt("twitter-bolt", new TwitterBolt()).shuffleGrouping("twitter-spout");
+
+		/*Test*/
 		LocalCluster local = new LocalCluster();
-		local.submitTopology("analytics-sd", conf, builder.createTopology());
+		local.submitTopology("analytics-sd2", conf, builder.createTopology());
 		
 	}
 }

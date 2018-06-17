@@ -1,5 +1,6 @@
 package social.media;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import twitter4j.Query;
@@ -30,7 +31,7 @@ public class TwitterHandler {
 		Query q = new Query(query);
 		q.setCount(100);
 		QueryResult result;
-		List <Status> s = null;
+		List <Status> s = new ArrayList<Status>();
 
 		try {
 			result = this.twitter.search(q);

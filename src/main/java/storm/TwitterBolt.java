@@ -19,7 +19,7 @@ public class TwitterBolt implements IRichBolt {
 
 	
 	private OutputCollector collector;
-	
+	private int counter = 0;
 	public void prepare(Map arg0, TopologyContext arg1, OutputCollector arg2) {
 		this.collector = arg2;
 	}
@@ -33,7 +33,16 @@ public class TwitterBolt implements IRichBolt {
 		}
 		System.out.println("<--------------------------------------------------------->");
 		
+		++counter;
+		System.out.println(counter);
 		//this.collector.emit(new Values(tb));
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
