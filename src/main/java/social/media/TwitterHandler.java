@@ -11,7 +11,8 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterHandler {
-
+	
+	private static final long serialVersionUID = 1L;
 	private Twitter twitter;
 
 	public TwitterHandler() {
