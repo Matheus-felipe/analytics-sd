@@ -1,4 +1,4 @@
-package youtube.auth;
+package auth;
 
 
 import com.google.api.client.auth.oauth2.Credential;

@@ -10,46 +10,47 @@ import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Values;
 
-import twitter4j.Status;
+import com.google.api.services.youtube.model.Comment;
+import com.google.api.services.youtube.model.CommentThread;
 
-public class TwitterSpout implements IRichSpout {
-
-
+public class YoutubeSpout implements IRichSpout {
 	private static final long serialVersionUID = 1L;
 	private int index = 0;
-	List <Status> sl;
+	private static List <Comment> cl;
 
 	private SpoutOutputCollector collector;
 	
 
-	public TwitterSpout(List <Status> pSl) {
-		this.sl = pSl;
+	public YoutubeSpout(List <Comment> pCl) {
+		this.cl = pCl;
 	}
 
 	public void open(Map arg0, TopologyContext arg1, SpoutOutputCollector arg2) {
 		this.collector = arg2;
-
 	}
 
-	/*Storm chama constantemente*/
 	public void nextTuple() {
-		if(index == this.sl.size()) {
-			System.out.println("Acabou os tweets");
-		}else {
-			this.collector.emit(new Values(sl.get(index++)));
-		}
-		
 		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if(index == this.cl.size()) {
+				System.out.println("No more comments.");
+			}else {
+				this.collector.emit(new Values(cl.get(index++)));
+			}
+			
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 
 	/*Campos que o spout envia*/
 	public void declareOutputFields(OutputFieldsDeclarer declarer) {
-		declarer.declare(new Fields("tweet"));
+		declarer.declare(new Fields("comment"));
 
 	}
 
