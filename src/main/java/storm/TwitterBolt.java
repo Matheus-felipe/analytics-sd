@@ -26,11 +26,13 @@ public class TwitterBolt implements IRichBolt {
 	
 	public void execute(Tuple tuple) {
 		Status s = (Status)tuple.getValue(0);
-		TwitterBean tb = new TwitterBean(s.getUser().getScreenName(), s.isRetweet(), s.getRetweetCount());
+		TwitterBean tb = new TwitterBean(s.getUser().getScreenName(), s.getText(), s.isRetweet(), s.getRetweetCount());
 		System.out.println("Perfil: " + tb.getName());
+		System.out.println(tb.getTweet());
 		if(tb.isRetweeted()) {
 			System.out.println("Retweets: " + tb.getRetweets());
 		}
+		
 		System.out.println("<--------------------------------------------------------->");
 		
 		++counter;

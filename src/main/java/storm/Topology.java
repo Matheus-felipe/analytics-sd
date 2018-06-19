@@ -9,6 +9,7 @@ import org.apache.storm.LocalCluster;
 import org.apache.storm.topology.TopologyBuilder;
 
 import com.google.api.services.youtube.model.Comment;
+import com.google.api.services.youtube.model.Video;
 
 import social.media.TwitterBean;
 import social.media.TwitterHandler;
@@ -23,15 +24,17 @@ public class Topology {
 		conf.registerSerialization(Status.class);
 		conf.registerSerialization(TwitterBean.class);
 		conf.registerSerialization(Comment.class);
+		//conf.registerSerialization(Video.class);
 		conf.registerSerialization(YoutubeBean.class);
 		
 		TwitterHandler th = new TwitterHandler();
 		YoutubeHandler yh = new YoutubeHandler();
 		List <Status> sl = th.searchTweets("feijocomacento");
 		List <Comment> cl = yh.ReadAllComments("BCJHkrYQ6s4"); 
+		//Video vil = yh.GetVideoRating("BCJHkrYQ6s4");
 		builder.setSpout("twitter-spout", new TwitterSpout(sl));
 		builder.setBolt("twitter-bolt", new TwitterBolt()).shuffleGrouping("twitter-spout");
-		builder.setSpout("youtube-spout", new YoutubeSpout(cl));
+		builder.setSpout("youtube-spout", new YoutubeSpout(cl));/*, vil));*/
 		builder.setBolt("youtube-bolt", new YoutubeBolt()).shuffleGrouping("youtube-spout");
 
 		/*Test*/

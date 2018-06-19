@@ -54,5 +54,15 @@
 	<classpathentry kind="lib" path="/home/lucasfp/Downloads/apache-storm-1.2.1/lib/disruptor-3.3.2.jar"/>
 	<classpathentry kind="lib" path="/home/lucasfp/Downloads/apache-storm-1.2.1/lib/clojure-1.7.0.jar"/>
 	<classpathentry kind="lib" path="/home/lucasfp/Downloads/apache-storm-1.2.1/lib/asm-5.0.3.jar"/>
+	<classpathentry kind="lib" path="/home/lucasfp/Downloads/esper-7.1.0/esper-7.1.0/esperio-stax-7.1.0.jar"/>
+	<classpathentry kind="lib" path="/home/lucasfp/Downloads/esper-7.1.0/esper-7.1.0/esperio-springjms-7.1.0.jar"/>
+	<classpathentry kind="lib" path="/home/lucasfp/Downloads/esper-7.1.0/esper-7.1.0/esperio-socket-7.1.0.jar"/>
+	<classpathentry kind="lib" path="/home/lucasfp/Downloads/esper-7.1.0/esper-7.1.0/esperio-kafka-7.1.0.jar"/>
+	<classpathentry kind="lib" path="/home/lucasfp/Downloads/esper-7.1.0/esper-7.1.0/esperio-http-7.1.0.jar"/>
+	<classpathentry kind="lib" path="/home/lucasfp/Downloads/esper-7.1.0/esper-7.1.0/esperio-db-7.1.0.jar"/>
+	<classpathentry kind="lib" path="/home/lucasfp/Downloads/esper-7.1.0/esper-7.1.0/esperio-csv-7.1.0.jar"/>
+	<classpathentry kind="lib" path="/home/lucasfp/Downloads/esper-7.1.0/esper-7.1.0/esperio-amqp-7.1.0.jar"/>
+	<classpathentry kind="lib" path="/home/lucasfp/Downloads/esper-7.1.0/esper-7.1.0/esper-avro-7.1.0.jar"/>
+	<classpathentry kind="lib" path="/home/lucasfp/Downloads/esper-7.1.0/esper-7.1.0/esper-7.1.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

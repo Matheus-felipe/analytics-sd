@@ -12,17 +12,20 @@ import org.apache.storm.tuple.Values;
 
 import com.google.api.services.youtube.model.Comment;
 import com.google.api.services.youtube.model.CommentThread;
+import com.google.api.services.youtube.model.Video;
 
 public class YoutubeSpout implements IRichSpout {
 	private static final long serialVersionUID = 1L;
 	private int index = 0;
 	private static List <Comment> cl;
-
+	private static Video vil;
+	
 	private SpoutOutputCollector collector;
 	
 
-	public YoutubeSpout(List <Comment> pCl) {
+	public YoutubeSpout(List <Comment> pCl) {/*, Video pVil) {*/
 		this.cl = pCl;
+		//this.vil = pVil;
 	}
 
 	public void open(Map arg0, TopologyContext arg1, SpoutOutputCollector arg2) {
@@ -31,10 +34,11 @@ public class YoutubeSpout implements IRichSpout {
 
 	public void nextTuple() {
 		try {
-			if(index == this.cl.size()) {
+			if(index == this.cl.size()) {/* index == this.vil.size()) {*/
 				System.out.println("No more comments.");
 			}else {
 				this.collector.emit(new Values(cl.get(index++)));
+				//this.collector.emit(new Values(vil.get(index++)));
 			}
 			
 			try {
