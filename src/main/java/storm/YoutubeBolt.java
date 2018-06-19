@@ -1,5 +1,6 @@
 package storm;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -28,8 +29,14 @@ public class YoutubeBolt implements IRichBolt {
 
 	public void execute(Tuple input) {
 		Comment c = (Comment)input.getValue(0);
-		YoutubeBean tb = new YoutubeBean(c.getSnippet().getTextOriginal());
-				
+		String filteredComment = "";	
+
+		// Filtrando caracteres especiais
+		filteredComment = Normalizer
+				.normalize(c.getSnippet().getTextOriginal(), Normalizer.Form.NFD)
+				.replaceAll("[^a-zA-Z0-9\\s+]", "");
+
+		YoutubeBean tb = new YoutubeBean(filteredComment);
 		for(String videoComment : tb.getComments()) {
 			System.out.println("Novo comentário sobre o vídeo: " + videoComment);
 			++counter;
