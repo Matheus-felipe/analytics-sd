@@ -1,0 +1,4 @@
+worker-id: 30bc169c-ef19-442d-92ec-0e06664d09c8
+logs.users: []
+logs.groups: []
+topology.submitter.user: matheus

@@ -9,6 +9,12 @@ import java.util.List;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Comment;
 import com.google.api.services.youtube.model.CommentSnippet;
@@ -29,13 +35,18 @@ public class YoutubeHandler {
 	private static int counter = 0;
 	private static YouTube youtube;
 
+	public static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+	
+	public static final JsonFactory JSON_FACTORY = new JacksonFactory();
+	
 	public YoutubeHandler() throws IOException {
-		List<String> scopes = Lists.newArrayList("https://www.googleapis.com/auth/youtube.force-ssl");
-		Credential credential = Auth.authorize(scopes, "commentthreads");
-		youtube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential).build();
+		//List<String> scopes = Lists.newArrayList("https://www.googleapis.com/auth/youtube.force-ssl");
+		//Credential credential = Auth.authorize(scopes, "commentthreads");
+		youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
+			public void initialize(HttpRequest request) throws IOException {
+				}
+			}).build();
 	}
-
-
 	//String videoId = "BCJHkrYQ6s4";
 
 	public List<Comment> ReadAllComments(String videoId) throws IOException, Exception {
@@ -49,6 +60,7 @@ public class YoutubeHandler {
 						.setVideoId(videoId)
 						.setTextFormat("plainText")
 						.setMaxResults(50l)
+						.setKey("AIzaSyAdxB0oY6sVcjW32T1-EEVPkkpPCnhivss")
 						.execute();
 
 				//CommentThreadListResponse commentsPage = prepareListRequest(videoId).execute();
@@ -64,7 +76,7 @@ public class YoutubeHandler {
 					break;
 
 				// Get next page of video comments threads
-				videoCommentsListResponse = youtube.commentThreads().list("snippet").setPageToken(nextPageToken).execute();
+				videoCommentsListResponse = youtube.commentThreads().list("snippet").setPageToken(nextPageToken).setKey("AIzaSyAdxB0oY6sVcjW32T1-EEVPkkpPCnhivss").execute();
 			}
 
 

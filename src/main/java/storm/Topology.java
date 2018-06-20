@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
+import org.apache.storm.StormSubmitter;
 import org.apache.storm.topology.TopologyBuilder;
 
 import com.google.api.services.youtube.model.Comment;
@@ -29,17 +30,22 @@ public class Topology {
 		
 		TwitterHandler th = new TwitterHandler();
 		YoutubeHandler yh = new YoutubeHandler();
-		List <Status> sl = th.searchTweets("feijocomacento");
-		List <Comment> cl = yh.ReadAllComments("BCJHkrYQ6s4"); 
+		List <Status> sl = th.searchTweets("https://www.youtube.com/watch?v=zZH2C0S0Hcw");
+		System.out.println("SAIU DAQUI");
+		List <Comment> cl = yh.ReadAllComments("zZH2C0S0Hcw"); 
+		
 		//Video vil = yh.GetVideoRating("BCJHkrYQ6s4");
 		builder.setSpout("twitter-spout", new TwitterSpout(sl));
 		builder.setBolt("twitter-bolt", new TwitterBolt()).shuffleGrouping("twitter-spout");
 		builder.setSpout("youtube-spout", new YoutubeSpout(cl));/*, vil));*/
 		builder.setBolt("youtube-bolt", new YoutubeBolt()).shuffleGrouping("youtube-spout");
-
-		/*Test*/
-		LocalCluster local = new LocalCluster();
-		local.submitTopology("analytics-sd2", conf, builder.createTopology());
+		builder.setBolt("cep-bolt", new CEPBolt()).shuffleGrouping("twitter-bolt").shuffleGrouping("youtube-bolt");
 		
+		
+		/*Test*/
+		//LocalCluster local = new LocalCluster();
+		//local.submitTopology("analytics-sd2", conf, builder.createTopology());
+		
+		StormSubmitter.submitTopology("analytics-sd", conf, builder.createTopology());
 	}
 }

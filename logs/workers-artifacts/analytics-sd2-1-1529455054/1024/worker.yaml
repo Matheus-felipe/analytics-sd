@@ -1,0 +1,4 @@
+worker-id: 32e56248-b561-4aad-9ea1-48d9760163a1
+logs.users: []
+logs.groups: []
+topology.submitter.user: matheus

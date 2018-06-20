@@ -18,6 +18,8 @@ public class YoutubeBean {
 	private BigInteger likes;
 	private BigInteger dislikes;
 	private BigInteger nComments;
+	private String comment;
+	private String match;
 	
 	public YoutubeBean(String pComment) {/*, BigInteger pViews, BigInteger pLikes, BigInteger pDislikes, BigInteger pNComments){*/
 	//this.videoName = pVideoName;
@@ -27,6 +29,7 @@ public class YoutubeBean {
 		this.nComments = pNComments;
 		//this.comments.add(pComment);*/
 		this.comments.add(pComment);
+		this.comment = pComment;
 	}
 	
 	public BigInteger getVideoViews(){
@@ -48,6 +51,18 @@ public class YoutubeBean {
 	public ArrayList <String> getComments(){
 		
 		return comments;
+	}
+	
+	public String getComment() {
+		return this.comment;
+	}
+	
+	public void setMatch(String pMatch) {
+		this.match = pMatch;
+	}
+	
+	public String getMatch() {
+		return this.match;
 	}
 	
 }
